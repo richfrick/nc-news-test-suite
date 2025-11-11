@@ -1,18 +1,23 @@
-import { test, expect } from '@playwright/test';
+import { expect } from '@playwright/test';
+import { test } from '../utils/fixtures';
 
-test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+test('get all articles', async ({ api }) => {
+  const response = await api
+    .path('/articles')
+    .params({ sort_by: 'comment_count' })
+    .getRequest(200);
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
+  expect(response.articles[0].comment_count).toEqual(16);
+  expect(response.articles.length).toBeGreaterThanOrEqual(37);
 });
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+test('get article', async ({ api }) => {
+  const response = await api
+    .path('/articles/34')
+    .params({ sort_by: 'comment_count' })
+    .getRequest(200);
 
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
-
-  // Expects page to have a heading with the name of Installation.
-  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+  expect(response.article.title).toEqual(
+    'The Notorious MSG’s Unlikely Formula For Success'
+  );
 });
