@@ -76,4 +76,8 @@ You can use the test suite as a basis to write API tests for your application. I
 
 **_Authentication_**
 
-1. You can generate auth tokens on an adhoc basis by using `helpers > createAuthToken`. When the tests run it will automatically generate an auth token and uses this for all api calls unless you pass your own auth token.
+1. The `createAuthToken()` helper assumes a username and password is needed when authenticating (e.g. logging into an app). It could just as easily be keys, if this is the case add them to your.env and update the function to pass keys in the header instead.
+
+2. The `Authorization` header is automatically set when tests a run and used unless you pass your own auth token when making a request.
+
+3. You can generate auth tokens on an adhoc basis by using `helpers > createAuthToken` and setting the `Authorization: ` header when setting .headers() in the request.

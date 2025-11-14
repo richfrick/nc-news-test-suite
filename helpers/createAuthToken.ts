@@ -10,9 +10,9 @@ export async function createAuthToken(email: string, password: string) {
 
   try {
     const tokenResponse = await api
-      .path('/healthz')
+      .path('/api/healthz')
       .body({ users: { email: email, password: password } })
-      .postRequest(200);
+      .getRequest(200);
     return `bearer ${tokenResponse.msg}`;
   } catch (error) {
     if (error instanceof Error) {

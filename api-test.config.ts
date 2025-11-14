@@ -19,6 +19,8 @@ function requiredEnvVars(name: string): string {
 const config = {
   appUrl: requiredEnvVars('APP_URL'),
   authService: requiredEnvVars('AUTH_SERVICE'),
+  email: requiredEnvVars('EMAIL'),
+  password: requiredEnvVars('PASSWORD'),
   /* Add additional config from .env files here */
   //usersUrl: requiredEnvVars('USERS_SERVICE'),
 };

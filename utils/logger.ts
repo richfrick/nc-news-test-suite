@@ -1,4 +1,4 @@
-import { Request_Method } from '../contsts/requestMetods';
+import { Request_Method } from '../consts/requestMetods';
 
 export class APILogger {
   private recentLogs: any[] = [];
