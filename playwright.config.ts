@@ -41,11 +41,11 @@ export default defineConfig({
   projects: [
     {
       name: 'schema-validation',
-      testMatch: 'schema',
+      testMatch: 'schema*',
     },
     {
       name: 'smoke-tests',
-      testMatch: 'smoke',
+      testMatch: 'smoke*',
       dependencies: ['schema-validation'],
     },
     {
