@@ -1,25 +1,26 @@
 /*
     These are the environment specific variables, these can also be pulled from secrest server
 */
+import path from 'path';
+import dotenv from 'dotenv';
 
 const env = process.env.ENV || 'dev';
 console.log(`Running tests against against ${env}`);
 
-const config = {
-  appUrl: 'http://localhost:9090',
-  authUrl: 'appUrl.com',
-  usersUrl: 'userServiceUrl.com',
-};
+const envVarPath = path.join(`./.env.${env}`);
+dotenv.config({ path: envVarPath });
 
-if (env === 'staging') {
-  (config.appUrl = process.env.APP_URL),
-    (config.authUrl = 'appUrl.com'),
-    (config.usersUrl = 'userServiceUrl.com');
+function requiredEnvVars(name: string): string {
+  const value = process.env[name];
+  if (!value) throw new Error(`Missing required env var: ${name}`);
+  return value;
 }
-if (env === 'production') {
-  (config.appUrl = process.env.APP_URL),
-    (config.authUrl = 'appUrl.com'),
-    (config.usersUrl = 'userServiceUrl.com');
-}
+
+const config = {
+  appUrl: requiredEnvVars('APP_URL'),
+  authService: requiredEnvVars('AUTH_SERVICE'),
+  /* Add additional config from .env files here */
+  //usersUrl: requiredEnvVars('USERS_SERVICE'),
+};
 
 export { config };

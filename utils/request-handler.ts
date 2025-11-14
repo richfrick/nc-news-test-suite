@@ -7,7 +7,7 @@ export class RequestHandler {
   private logger: APILogger;
   private baseUrl: string | undefined;
   private defaultBaseUrl: string;
-  private apiPath: string;
+  private apiPath!: string;
   private queryParams: object = {};
   private apiHeaders: Record<string, string> = {};
   private apiBody: object = {};
