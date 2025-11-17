@@ -48,13 +48,30 @@ You can use the test suite as a basis to write API tests for your application. I
 
    > ENV=Staging npx playwright test
 
+## 📜 Schema Validation
+
+There are also schema tests available courtecy of the [AJV Schema validator](https://ajv.js.org/). For the moment this only works for JSON schema validtion but can be extended should it be required.
+
+it uses a custom logger and matcher to output a clear message on failure into the terminal and playwright-reports
+
+**Running Schema Tests**
+
+these will run as part of the full suite but to run these in isolation simply
+
+```
+npx playwright test --project schema-validation
+```
+
+**Naming convention**
+all schema tests should be named **_schema-name_**.schema.spec.ts to allow the project runner to pick it up
+
 ## 🤝 Useful Info
 
 **Running Tests**
 
 1. to run a specific test file you can run
 
-   > npx playwright tests -g your-file.spec.ts
+   > npx playwright test -g your-file.spec.ts
 
 2. If you want to change the order of tests of just change you can change the projects section in playwright.config.ts
 
@@ -62,11 +79,12 @@ You can use the test suite as a basis to write API tests for your application. I
    projects: [
      {
        name: 'schema-validation',
-       testMatch: 'schema*',
+
+       testMatch: '*schema.spec.ts',
      },
      {
        name: 'smoke-tests',
-       testMatch: 'smoke*',
+       testMatch: '*schema.spec.ts',
        dependencies: ['schema-validation'],
      },
    ];

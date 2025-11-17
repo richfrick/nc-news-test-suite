@@ -3,6 +3,7 @@ import { RequestHandler } from './request-handler';
 import { APILogger } from './logger';
 import { config } from '../api-test.config';
 import { createAuthToken } from '../helpers/createAuthToken';
+import { setCustomExpectLogger } from './custom-expect';
 
 export type TestOpions = {
   api: RequestHandler;
@@ -24,6 +25,7 @@ export const test = base.extend<TestOpions, WorkerFixture>({
 
   api: async ({ request, authToken }, use) => {
     const logger = new APILogger();
+    setCustomExpectLogger(logger);
     const requestHandler = new RequestHandler(
       request,
       config.appUrl,
