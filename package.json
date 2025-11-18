@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "generate:types": "json2ts --input schemas/request-schemas --output types --cwd schemas/request-schemas"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -12,7 +14,8 @@
     "@playwright/test": "^1.56.1",
     "@types/node": "^24.10.0",
     "ajv": "^8.17.1",
-    "genson-js": "^0.0.8"
+    "genson-js": "^0.0.8",
+    "json-schema-to-typescript": "^15.0.4"
   },
   "dependencies": {
     "dotenv": "^17.2.3"

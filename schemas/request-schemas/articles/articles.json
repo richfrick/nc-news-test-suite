@@ -1,0 +1,25 @@
+{
+  "$id": "article-request-body.json",
+  "title": "ArticleRequestBody",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "topic": {
+      "type": "string"
+    },
+    "author": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string"
+    },
+    "article_img_url": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "required": ["title", "topic", "author", "body"],
+  "additionalProperties": false
+}

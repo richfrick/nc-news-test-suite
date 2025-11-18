@@ -3,7 +3,7 @@ import path from 'path';
 import Ajv from 'ajv';
 import { createSchema } from 'genson-js';
 
-const SCHEMA_BASE_PATH = './response-schemas';
+const SCHEMA_BASE_PATH = './schemas/response-schemas';
 const ajv = new Ajv();
 
 export async function validateSchema(

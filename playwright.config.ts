@@ -41,17 +41,16 @@ export default defineConfig({
   projects: [
     {
       name: 'schema-validation',
-
       testMatch: '*schema.spec.ts',
     },
     {
       name: 'smoke-tests',
       testMatch: '*schema.spec.ts',
-      dependencies: ['schema-validation'],
+      //dependencies: ['schema-validation'],
     },
     {
       name: 'api-testing',
-      dependencies: ['smoke-tests'],
+      //dependencies: ['smoke-tests'],
       // use:{
       //   extraHTTPHeaders:{
       //   }

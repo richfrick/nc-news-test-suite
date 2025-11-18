@@ -1,3 +1,4 @@
+import { ArticleRequestBody } from '../types/articles/articles';
 import { expect } from '@playwright/test';
 import { test } from '../utils/fixtures';
 
@@ -25,16 +26,17 @@ test('Retrieve an article', async ({ api }) => {
 });
 
 test('create and delete article', async ({ api }) => {
+  const articleBody: ArticleRequestBody = {
+    author: 'tickle122',
+    title: 'test title',
+    body: 'test body',
+    topic: 'football',
+    article_img_url:
+      'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
+  };
   const createArticleResponse = await api
     .path('/api/articles')
-    .body({
-      author: 'tickle122',
-      title: 'test title',
-      body: 'test body',
-      topic: 'football',
-      article_img_url:
-        'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
-    })
+    .body(articleBody)
     .postRequest(201);
 
   expect(createArticleResponse.article.article_id).toBeGreaterThanOrEqual(0);
