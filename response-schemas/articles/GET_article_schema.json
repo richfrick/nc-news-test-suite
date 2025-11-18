@@ -1,0 +1,51 @@
+{
+    "type": "object",
+    "properties": {
+        "article": {
+            "type": "object",
+            "properties": {
+                "article_id": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "topic": {
+                    "type": "string"
+                },
+                "author": {
+                    "type": "string"
+                },
+                "body": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "votes": {
+                    "type": "integer"
+                },
+                "article_img_url": {
+                    "type": "string"
+                },
+                "comment_count": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "article_id",
+                "title",
+                "topic",
+                "author",
+                "body",
+                "created_at",
+                "votes",
+                "article_img_url",
+                "comment_count"
+            ]
+        }
+    },
+    "required": [
+        "article"
+    ]
+}

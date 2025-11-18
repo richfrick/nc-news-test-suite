@@ -1,50 +1,50 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Generated schema for Root",
-  "type": "object",
-  "properties": {
-    "articles": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "article_id": {
-            "type": "number"
-          },
-          "title": {
-            "type": "string"
-          },
-          "topic": {
-            "type": "string"
-          },
-          "author": {
-            "type": "string"
-          },
-          "created_at": {
-            "type": "string"
-          },
-          "votes": {
-            "type": "number"
-          },
-          "article_img_url": {
-            "type": "string"
-          },
-          "comment_count": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "article_id",
-          "title",
-          "topic",
-          "author",
-          "created_at",
-          "votes",
-          "article_img_url",
-          "comment_count"
-        ]
-      }
-    }
-  },
-  "required": ["articles"]
+    "type": "object",
+    "properties": {
+        "articles": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "article_id": {
+                        "type": "integer"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "topic": {
+                        "type": "string"
+                    },
+                    "author": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "votes": {
+                        "type": "integer"
+                    },
+                    "article_img_url": {
+                        "type": "string"
+                    },
+                    "comment_count": {
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "article_id",
+                    "title",
+                    "topic",
+                    "author",
+                    "created_at",
+                    "votes",
+                    "article_img_url",
+                    "comment_count"
+                ]
+            }
+        }
+    },
+    "required": [
+        "articles"
+    ]
 }

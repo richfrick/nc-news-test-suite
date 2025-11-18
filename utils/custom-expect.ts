@@ -11,18 +11,27 @@ export const setCustomExpectLogger = (logger: APILogger) => {
 declare global {
   namespace PlaywrightTest {
     interface Matchers<R, T> {
-      shouldMatchSchema(dirName: string, fileName: string): Promise<R>;
+      shouldMatchSchema(
+        dirName: string,
+        fileName: string,
+        createSchemaFlag?: boolean
+      ): Promise<R>;
     }
   }
 }
 
 export const expect = baseExpect.extend({
-  async shouldMatchSchema(recieved: any, dirName: string, fileName: string) {
+  async shouldMatchSchema(
+    recieved: any,
+    dirName: string,
+    fileName: string,
+    createSchemaFlag: boolean = false
+  ) {
     let pass: boolean;
     let message = '';
 
     try {
-      await validateSchema(dirName, fileName, recieved);
+      await validateSchema(dirName, fileName, recieved, createSchemaFlag);
       pass = true;
       message = 'Schema validation Passed';
     } catch (error: any) {

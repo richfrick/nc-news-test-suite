@@ -54,7 +54,7 @@ There are also schema tests available courtecy of the [AJV Schema validator](htt
 
 it uses a custom logger and matcher to output a clear message on failure into the terminal and playwright-reports
 
-**Running Schema Tests**
+### Running Schema Tests
 
 these will run as part of the full suite but to run these in isolation simply
 
@@ -63,7 +63,24 @@ npx playwright test --project schema-validation
 ```
 
 **Naming convention**
+
 all schema tests should be named **_schema-name_**.schema.spec.ts to allow the project runner to pick it up
+
+### Schema Generation
+
+As part of the schema validation process we need the ability to generate AND update the schemas should they change.
+
+This can be done by updating the shouldMatchSchema custom matcher with the optional createSchemaFlag to true. Remember to remove this after you have run the test to create the schema otherwise subsequent test runs will only create the schema and not run the test.
+
+```ts
+test('Validate GET articles schema', async ({ api }) => {
+  const response = await api.path(`/api/articles`).getRequest(200);
+
+  await expect(response).shouldMatchSchema('articles', 'GET_articles', true);
+});
+```
+
+the example above will create the schema for the GET_articles request and save it in the articles folder
 
 ## 🤝 Useful Info
 
