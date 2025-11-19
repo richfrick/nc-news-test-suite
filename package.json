@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "generate:types": "json2ts --input schemas/request-schemas --output types --cwd schemas/request-schemas"
+    "generate:request-bodies": "json2ts --input schemas/request-schemas --output types/request-bodies --cwd schemas/request-schemas",
+    "generate:response-bodies": "json2ts --input schemas/response-schemas --output types/response-bodies --cwd schemas/response-schemas"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
     "@types/node": "^24.10.0",
     "ajv": "^8.17.1",
     "genson-js": "^0.0.8",
+    "got": "^14.6.4",
     "json-schema-to-typescript": "^15.0.4"
   },
   "dependencies": {

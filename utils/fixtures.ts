@@ -1,9 +1,11 @@
 import { test as base } from '@playwright/test';
-import { RequestHandler } from './request-handler';
+
 import { APILogger } from './logger';
 import { config } from '../api-test.config';
 import { createAuthToken } from '../helpers/createAuthToken';
 import { setCustomExpectLogger } from './custom-expect';
+import { PlaywrightHttpClient } from './api-requests/playwrightHttpClient';
+import { RequestHandler } from './api-requests/requestHandler';
 
 export type TestOpions = {
   api: RequestHandler;
@@ -26,8 +28,9 @@ export const test = base.extend<TestOpions, WorkerFixture>({
   api: async ({ request, authToken }, use) => {
     const logger = new APILogger();
     setCustomExpectLogger(logger);
+    const http = new PlaywrightHttpClient(request);
     const requestHandler = new RequestHandler(
-      request,
+      http,
       config.appUrl,
       logger,
       authToken
