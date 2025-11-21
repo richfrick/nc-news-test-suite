@@ -4,7 +4,7 @@ import { createAuthToken } from '../helpers/createAuthToken';
 import { config } from '../api-test.config';
 
 test('Health check endpoint', async ({ api }) => {
-  const response = await api.path('/api/healthz').getRequest(200);
+  const response = await api.path('/api/healthz').get(200);
 
   expect(response.msg).toEqual('all good');
 });

@@ -4,7 +4,7 @@ import { HttpClient } from './httpClient';
 export class PlaywrightHttpClient implements HttpClient {
   constructor(private ctx: APIRequestContext) {}
 
-  async request(method: string, url: string, options: any) {
+  async request(method: string, url: string, options: any = {}) {
     const response = await this.ctx.fetch(url, {
       method,
       headers: options?.headers,
