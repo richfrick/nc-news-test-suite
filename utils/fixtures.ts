@@ -4,11 +4,11 @@ import { APILogger } from './logger';
 import { config } from '../api-test.config';
 import { createAuthToken } from '../helpers/createAuthToken';
 import { setCustomExpectLogger } from './custom-expect';
-import { PlaywrightHttpClient } from './api-requests/playwrightHttpClient';
-import { RequestHandler } from './api-requests/requestHandler';
+import { PlaywrightHttpClient } from '../http/playwrightHttpClient';
+import { RequestHandler } from '../http/requestHandler';
 
 export type TestOpions = {
-  api: RequestHandler;
+  api: RequestHandler<any>;
   config: typeof config;
 };
 

@@ -1,11 +1,11 @@
-import { ResponseTypes } from '../../types/response-bodies/responseTypes';
-import { APILogger } from '../../utils/logger';
+import { APILogger } from '../utils/logger';
 import { HttpClient } from './httpClient';
+import type { MethodResponse, MethodBody, MethodQuery } from './types';
 
-export class RequestHandler<P extends keyof ResponseTypes | string = string> {
+export class RequestHandler<P extends string = string> {
   private baseUrl?: string | undefined;
-  private requestPath!: string;
-  private queryParams: object = {};
+  private requestPath!: P;
+  private queryParams: Record<string, any> = {};
   private requestHeaders: Record<string, string> = {};
   private requestBody: object = {};
   private clearAuthFlag: boolean = false;
@@ -21,24 +21,21 @@ export class RequestHandler<P extends keyof ResponseTypes | string = string> {
     this.baseUrl = url;
     return this;
   }
-  path<Path extends keyof ResponseTypes & string>(p: Path) {
-    this.requestPath = p;
+  path<Path extends string>(p: Path) {
+    this.requestPath = p as any;
     return this as unknown as RequestHandler<Path>;
   }
-  params(params: object) {
-    this.queryParams = params;
+
+  params(this: RequestHandler<P>, params: MethodQuery<P>) {
+    this.queryParams = params as Record<string, any>;
     return this;
   }
   headers(headers: Record<string, string>) {
     this.requestHeaders = headers;
     return this;
   }
-  body(body: object) {
-    this.requestBody = body;
-    return this;
-  }
-  clearAuth() {
-    this.clearAuthFlag = true;
+  body(this: RequestHandler<P>, b: MethodBody<P, 'POST' | 'PATCH'>) {
+    this.requestBody = b as object;
     return this;
   }
 
@@ -64,7 +61,7 @@ export class RequestHandler<P extends keyof ResponseTypes | string = string> {
     this.requestBody = {};
     this.requestHeaders = {};
     this.baseUrl = undefined;
-    this.requestPath = '';
+    this.requestPath = '' as P;
     this.queryParams = {};
     this.clearAuthFlag = false;
   }
@@ -83,7 +80,12 @@ export class RequestHandler<P extends keyof ResponseTypes | string = string> {
       body: ['POST', 'PATCH'].includes(method) ? this.requestBody : undefined,
     });
     const responseStatus = response.status;
-    const responseBody = await response.json();
+    let responseBody: any = null;
+    try {
+      responseBody = await response.json();
+    } catch {
+      responseBody = null;
+    }
 
     this.logger.logResponse(responseStatus, responseBody);
     this.cleanup();
@@ -99,24 +101,19 @@ export class RequestHandler<P extends keyof ResponseTypes | string = string> {
     return responseBody as T;
   }
 
-  get(status: number) {
-    return this.send<
-      P extends keyof ResponseTypes ? ResponseTypes[P] : unknown
-    >('GET', status);
+  get(this: RequestHandler<P>, status: number) {
+    return this.send<MethodResponse<P, 'GET'>>('GET', status);
   }
-  post(status: number) {
-    return this.send<
-      P extends keyof ResponseTypes ? ResponseTypes[P] : unknown
-    >('POST', status);
+
+  post(this: RequestHandler<P>, status: number) {
+    return this.send<MethodResponse<P, 'POST'>>('POST', status);
   }
-  patch(status: number) {
-    return this.send<
-      P extends keyof ResponseTypes ? ResponseTypes[P] : unknown
-    >('PATCH', status);
+
+  patch(this: RequestHandler<P>, status: number) {
+    return this.send<MethodResponse<P, 'PATCH'>>('PATCH', status);
   }
-  delete(status: number) {
-    return this.send<
-      P extends keyof ResponseTypes ? ResponseTypes[P] : unknown
-    >('DELETE', status);
+
+  delete(this: RequestHandler<P>, status: number) {
+    return this.send<MethodResponse<P, 'DELETE'>>('DELETE', status);
   }
 }
